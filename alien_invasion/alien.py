@@ -11,7 +11,7 @@ class Alien(Sprite):
 		self.ai_settings = ai_settings
 		
 		#Load the alien imageand set its rect atribute.
-		self.image = pygame.image.load('images/dominion_attackship.bmp')
+		self.image = pygame.image.load('images/domship3.bmp')
 		self.rect = self.image.get_rect()
 		
 		#Start each new alien neer the top left of the screen.
@@ -24,3 +24,16 @@ class Alien(Sprite):
 	def blitme(self):
 		"""Draw the alien at its current location."""
 		self.screen.blit(self.image, self.rect)
+	
+	def check_edges(self):
+		"""Return True if alien is at edge of the screen."""
+		screen_rect = self.screen.get_rect()
+		if self.rect.right >= screen_rect.right or self.rect.left <= 0:
+			return True
+			
+	def update(self):
+		""" Move the alien."""
+		self.x += (self.ai_settings.alien_speed_factor * 
+						self.ai_settings.fleet_direction)
+		self.rect.x = self.x
+		
